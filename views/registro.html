@@ -1,0 +1,43 @@
+ <div class="" ng-controller="registroController">
+     <div class="">
+         <h2>Registro de nuevos usuarios</h2>
+
+         <div class="" id="loginbox">
+               <form method="post" name="login" id="flogin">
+                    <div class="row">
+                    <div class="col-xs-0 col-sm-12 col-md-3 col-lg-3"></div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                              
+                            <input type="text" class="form-control" name="nombre" id="nompreInput" placeholder="Nombre(s)" ng-model="name" required >
+
+                            <input type="text" class="form-control" name="apellidos" id="apellidosInput" placeholder="Apellidos" ng-model="lastName" required>
+
+                            <input type="text" class="form-control" placeholder="Email" ng-model="email" required>
+                            
+                            <input type="password" class="form-control" id="passInput" placeholder="Contraseña" ng-model="password" required maxlength="9" minlength="9">
+                            
+                             <input type="number" class="form-control" name="Credito" id="creditInput" placeholder="Credito" ng-model="credit" required>
+
+                             <div class="btnEnviar">
+                                <input type="submit" value="Registrar" class="btn btn-success" id="btn-ingresar" ng-click="registro()"> <br><br>
+                                
+                                <div class="alert alert-danger" id="oculto" style="display:none;">
+                                    <strong>Cuidado!</strong> Ingresa los datos correctos.
+                                </div>
+
+                                <div class="alert alert-success" id="oculto2" style="display:none;">
+                                    <strong>Correcto!</strong> Usuario Registrado con exito.
+                                </div>
+                            </div>  
+                    </div>
+                    <div class="col-xs-0 col-sm-12 col-md-3 col-lg-3"></div>
+                        
+                    </div>
+                      
+               </form>
+           </div>
+     </div>
+ </div>
+
+

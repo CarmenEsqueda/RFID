@@ -1,0 +1,29 @@
+/*------Menu------*/
+*{
+    box-sizing: border-box;
+}
+
+#menu-bar {
+    display: none;
+}
+
+header label {
+    float: right;
+    font-size: 30px;
+    margin: 20px 10px;
+    cursor: pointer;
+}
+
+.menu {
+            
+}
+
+#menu-bar:checked ~ .menu {
+    transition: all 1s;
+    transform: translateY(0);
+}
+
+#AutosAct td {
+   border-color: red;
+   border:5px;
+}

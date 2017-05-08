@@ -1,0 +1,30 @@
+
+#loginbox {
+    /*border-radius: 50px;*/
+    margin: 30px auto;
+    width: 80%	;
+  	/*background-color: red;*/
+    /*box-shadow: 0px 5px 15px black;
+    -webki- border-radius: 50px;
+    -moz- border-radius: 50px;*/
+}
+
+#flogin {
+    padding: 5px;
+}
+
+#btn-ingresar {
+    margin-top: 30px;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px 20px 5px 20px;
+    border: 0px;
+    background-color: black;
+    font-size: 1.2em;
+    
+}
+
+#btn-ingresar:hover{
+    box-shadow: 0px 5px 15px #263238;
+}
+

@@ -1,0 +1,8 @@
+#AutosAct {
+	 border: 2px solid #b71c1c;
+	 border-radius: 5px 5px 5px 5px;
+	 text-align: center;
+	}
+#AutosAct p {
+	font-size: 2em;
+}

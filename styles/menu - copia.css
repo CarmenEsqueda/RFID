@@ -1,0 +1,80 @@
+/*------Menu------*/
+*{
+    box-sizing: border-box;
+}
+
+#menu-bar {
+    display: none;
+}
+
+header label {
+    float: right;
+    font-size: 30px;
+    margin: 20px 10px;
+    cursor: pointer;
+}
+
+.menu {
+
+    background-color: #b71c1c;
+  
+}
+.menu li a {
+    color: white;
+    height: 50px;
+   
+    border-bottom: 0px solid rgba(255, 255, 255, 0.5);
+}
+.menu li{
+    padding: 15px;
+    margin-top: 1px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu li:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+#menu-bar:checked ~ .menu {
+    transition: all 1s;
+    transform: translateY(0);
+}
+
+/*-------------------------------- Responsivo --------------------------------*/
+@media (min-width:1024px){
+    .menu {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: translateY(30%);
+        float: right;
+        display: flex;
+    }
+    .menu li {
+        border: none;
+    }
+    
+    #menusito{
+        display: none;
+    }
+    
+     section {
+       /* background-color: red;*/
+        height: 530px;
+    }
+}
+
+@media (max-width:800px){
+     section {
+        /*background-color: black;*/
+        height: auto;
+    }
+}
+/*-------------------------------- ./Responsivo --------------------------------*/
+
+#AutosAct td {
+   border-color: red;
+   border:5px;
+}

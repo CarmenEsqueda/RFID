@@ -1,0 +1,35 @@
+<!--
+	Muestra un informe resumido de los datos actuales en la BD
+-->
+ <div class="" ng-controller="mainController">
+ <div class="">
+ 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+ 		<h1>Bienvenido Administrador</h1>
+	 	<h4>Estos son los informes actuales del sistema</h4>
+ 	</div>
+ 	<!--Contenedor de total de autos en estacionamiento-->
+ 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="">
+ 		<div class="table-responsive">
+	 		<table class="table table-bordered">
+	 		<tr>
+	 			<td>Total de autos:</td>
+	 			<td>{{registrados[0].Parking.capacity}}</td>
+	 		</tr>
+	 		<tr>
+	 			<td>Lugares Ocupados</td>
+	 			<td>{{cantidadActual}}</td>
+	 		</tr>
+	 		<tr>
+	 			<td>Lugares Disponibles</td>
+	 			<td>{{cantDispo}}</td>
+	 		</tr>
+
+	 		</table>
+	 	</div>
+ 	</div>
+ 
+ 	
+ </div>
+
+</div>
+
