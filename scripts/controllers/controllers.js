@@ -105,29 +105,45 @@ app.controller('registroController', function($scope, $http, $location) {
 /*------------------CONTROLADORES USUARIOS--------------------------*/
 app.controller('GetUsuarios', function($scope, $http, $routeParams){
   
-  (function() {
-    var EndPoint = "https://pluma-api.herokuapp.com/api/users/";
-        $http.get(EndPoint).then(function(resp){
-            $scope.datos = resp.data;
+    (function() {
+        var EndPoint = "https://pluma-api.herokuapp.com/api/users/";
+            $http.get(EndPoint).then(function(resp){
+                $scope.datos = resp.data;
+            });
+        }());
+
+    $scope.eliminar = function(id){
+        var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
+        function refrescar(){  window.location.reload(); };
+        $http.delete(EndPoint).success(function(resp){
+            console.log("eliminado");
+            refrescar();
+
+        }).error(function(err){
+            console.log("no paso");
         });
-    }());
+      };
 
-  $scope.eliminar = function(id){
-    var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
-    function refrescar(){
-    window.location.reload();
-    };
-    $http.delete(EndPoint).success(function(resp){
-        console.log("eliminado");
-        refrescar();
+ $scope.editar = function(id){
+     var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
+     var datos = {
+        "name": $scope.name,
+        "lastName": $scope.lastName,
+        "email": $scope.email,
+        "credit": $scope.credit,
+        "password": $scope.password,
+        "active": true
+     };
+     function refrescar(){  window.location.reload(); };
+     $http.put(EndPoint, datos).success(function(resp){
+         console.log(resp);
 
-    }).error(function(err){
-        console.log("no paso");
-    });
-  };
+         alert('buuuya!');
+     }).error(function(err){
+        alert('buuu');
+     });
+ };
 
-  //Editar Registros 
-  
 });
 
  
