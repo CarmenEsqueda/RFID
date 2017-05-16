@@ -23,16 +23,16 @@
  				<td>{{dato.updatedAt}}</td>
  				<td>
  					<!--<button class="btn button primario" data-toggle="modal" data-target="#myModal">Editar</button>-->
- 					<button class="btn button secundario" data-toggle="modal" data-target="#myModalEdit" ng-click="eliminar()">Eliminar</button>
+ 					<button class="btn button secundario" ng-click="eliminar(dato.id)">Eliminar</button>
  				</td>
-
+        
  			</tr>
 	 		</table>
 	 	</div>
 	 	<div class="pag"></div>
 	 </div>
- </div>
 
+</div> <!--Finalediv-->
  <!--MODALES-->
 
   <!-- Modal -->
@@ -85,7 +85,7 @@
         <div class="modal-body">
         	<h3 class="texto">Desea Eliminar los datos del usuario?</h3><br>
         	<div class="row">
-        		<div class="col-lg-6"><button class="btn button2 button" ng-click="eliminar()">Si</button></div>
+        		<div class="col-lg-6"><button class="btn button2 button" ng-click="eliminar(dato.id)">Si</button></div>
         		<div class="col-lg-6"><button class="btn button">No</button></div>
         	</div>
         	<br>

@@ -115,11 +115,14 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
         });
     }());
 
-  $scope.eliminar = function(){
-    var EndPoint = "https://pluma-api.herokuapp.com/api/users/:3";
-   
+  $scope.eliminar = function(id){
+    var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
+    function refrescar(){
+    window.location.reload();
+    };
     $http.delete(EndPoint).success(function(resp){
         console.log("eliminado");
+        refrescar();
     }).error(function(err){
         console.log("no paso");
     });
