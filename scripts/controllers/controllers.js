@@ -18,7 +18,7 @@ var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
          .when('/listado', {
             templateUrl : 'views/listado.html',
             controller  : 'GetUsuarios'
-        })
+        });
     });
 
 
@@ -26,12 +26,8 @@ var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
 /*---------------------CONTROLADOR LOGIN-------------------------*/
 
 app.controller('LoginController', ['$scope','$location','$http','$cookieStore',function($scope,$location,$http,$cookies,$cookieStore){
-   $scope.Login = function(valor){
-    
-
+   $scope.Login = function(valor){  
  };
-
-
 }]);
 
 /*------------------CONTROLADORES MAIN--------------------------*/
@@ -88,10 +84,11 @@ app.controller('registroController', function($scope, $http, $location) {
         };
         var pase, pase2;
 
-        function ocultar() { document.getElementById('oculto').style.display = 'none';
-        document.getElementById('oculto2').style.display = 'none'; }
-        
-        function locaL(){ $location.path('/');}
+      //  function ocultar() { document.getElementById('oculto').style.display = 'none';
+        //document.getElementById('oculto2').style.display = 'none'; }
+    
+    
+       // function locaL(){ $location.path('/');}
       
         $http.post(EndPoint, regis).success(function(resp) {
             console.log(regis);
@@ -119,12 +116,9 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
     }());
 
   $scope.eliminar = function(){
-    var EndPoint = "https://pluma-api.herokuapp.com/api/users";
-    var datos = {
-        "id": $scope.idModel
-    };
-
-    $http.delete(EndPoint,datos).success(function(resp){
+    var EndPoint = "https://pluma-api.herokuapp.com/api/users/:3";
+   
+    $http.delete(EndPoint).success(function(resp){
         console.log("eliminado");
     }).error(function(err){
         console.log("no paso");
