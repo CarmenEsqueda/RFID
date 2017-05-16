@@ -15,7 +15,14 @@ header label {
 }
 
 .menu {
-            
+    background-color: #388e3c;    
+}
+
+#barraNavegacion li a{
+    color: white;
+}
+#Logo {
+     color: white;
 }
 
 #menu-bar:checked ~ .menu {

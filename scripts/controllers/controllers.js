@@ -1,12 +1,12 @@
-var app =  angular.module('MyApp', ['ngRoute'])
-app.config(function($routeProvider) {
+var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
+.config(function($routeProvider) {
 
     $routeProvider
-        .when('/', {
+       /*.when('/', {
             templateUrl : 'views/login.html',
             controller  : 'LoginController'
-        })
-        .when('/Inicio', {
+        })*/
+        .when('/', {
             templateUrl : 'views/main.html',
             controller  : 'mainController'
         })
@@ -17,34 +17,22 @@ app.config(function($routeProvider) {
         
          .when('/listado', {
             templateUrl : 'views/listado.html',
-            controller  : 'GetEstaciomanentos'
+            controller  : 'GetUsuarios'
         })
-});
+    });
 
 
 /*Bearer*/
 /*---------------------CONTROLADOR LOGIN-------------------------*/
 
-app.controller('LoginController', function($scope,$location,$http){
-    $scope.Login = function(){
-     var EndPoint = "https://pluma-api.herokuapp.com/api/administrators";
-     var datos = {
-        "email": $scope.email,
-        "password": $scope.Contraseña
-     };
+app.controller('LoginController', ['$scope','$location','$http','$cookieStore',function($scope,$location,$http,$cookies,$cookieStore){
+   $scope.Login = function(valor){
+    
 
-    function refrescar(){window.location.reload(); };
-
-     $http.post(EndPoint, datos).success(function(resp){
-        console.log("paso");
-        $location.path('/Inicio');
-        document.getElementById('barraNavegacion').style.display = 'block';
-     }).error(function(error){
-        console.log("No paso");
-        refrescar();
-     });
  };
-});
+
+
+}]);
 
 /*------------------CONTROLADORES MAIN--------------------------*/
 app.controller('mainController', function($scope,$http) {
@@ -54,18 +42,33 @@ app.controller('mainController', function($scope,$http) {
         $http.get(EndPoint).then(function(resp){
 
             //TRAE TODOS LOS VALORES
-            var respo = $scope.registrados = resp.data;  
+            var respo = resp.data;
+            $scope.registrados =  respo; 
             //console.log(respo);
 
             //CALCULA TODOS LA CANTIDAD DE VALORES ALMACENADOS
-            var cantidadActuallog = $scope.cantidadActual = respo.length;
-            console.log(cantidadActuallog);
+            var cantidadActuallog =  respo.length;
+            $scope.cantidadActual = cantidadActuallog;
+            //console.log(cantidadActuallog);
 
             //CALCULA LA CANTIDAD RESTANTE DEL TOTAL
-            var cantDispoLog = $scope.cantDispo = 100 - cantidadActuallog;
-            console.log(cantDispoLog);
+            var cantDispoLog =  100 - cantidadActuallog;
+            $scope.cantDispo = cantDispoLog;
+            //console.log(cantDispoLog);
+        
         });
     }());
+
+    (function() {
+        var EndPoint ="https://pluma-api.herokuapp.com/api/users";
+        $http.get(EndPoint).then(function(resp){
+             var total = resp.data;
+             $scope.datas = total;
+             $scope.Total_usuarios = total.length;
+
+        });
+    }());
+
 
 });
 
@@ -103,27 +106,30 @@ app.controller('registroController', function($scope, $http, $location) {
         });
     };
 
-    $scope.eliminar = function() {
-        var datos = {
-            "id": id
-        };
-        $http.delete(EndPoint, datos).success(function(resp){
-            console.log(resp);
-        }).error(function(error){
-            console.log(error);
-        });
-    };
-
 });
 
 /*------------------CONTROLADORES USUARIOS--------------------------*/
-app.controller('GetEstaciomanentos', function($scope, $http, $routeParams){
-  var EndPoint = "https://pluma-api.herokuapp.com/api/users";
+app.controller('GetUsuarios', function($scope, $http, $routeParams){
+  
   (function() {
+    var EndPoint = "https://pluma-api.herokuapp.com/api/users/";
         $http.get(EndPoint).then(function(resp){
             $scope.datos = resp.data;
         });
     }());
+
+  $scope.eliminar = function(){
+    var EndPoint = "https://pluma-api.herokuapp.com/api/users";
+    var datos = {
+        "id": $scope.idModel
+    };
+
+    $http.delete(EndPoint,datos).success(function(resp){
+        console.log("eliminado");
+    }).error(function(err){
+        console.log("no paso");
+    });
+  };
 
   //Editar Registros 
   

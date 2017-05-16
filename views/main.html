@@ -2,10 +2,10 @@
 	Muestra un informe resumido de los datos actuales en la BD
 -->
  <div class="" ng-controller="mainController">
- <div class="">
+ <div class="row">
  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
  		<h1>Bienvenido Administrador</h1>
-	 	<h4>Estos son los informes actuales del sistema</h4>
+	 	<h4>Estos son los informes actuales del sistema</h4><br>
  	</div>
  	<!--Contenedor de total de autos en estacionamiento-->
  	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="">
@@ -27,8 +27,45 @@
 	 		</table>
 	 	</div>
  	</div>
+ 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="">
+ 		<div class="table-responsive">
+	 		<table class="table table-bordered">
+	 		<tr>
+	 			<td>Total de usuarios registrados:</td>
+	 			<td>{{Total_usuarios}}</td>
+	 		</tr>
+	 		
+
+	 		</table>
+	 	</div>
+ 	</div>
  
  	
+ </div>
+ <div class="row">
+ 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	 	<div class="table-responsive">
+	 	<h4>Registro de ultimos usuarios</h4>
+	 		<table class="table table-bordered">
+		 		<td>Id</td>
+		 		<td>Nombre</td>
+		 		<td>Apellido</td>
+		 		<td>Email</td>
+		 		<td>Activo</td>
+		 		<td>createdAt</td>
+		 		<td>updatedAt</td>
+		 		<tr ng-repeat="dato in datas">
+			 		<td>#{{dato.id}}</td>
+	 				<td>{{dato.name}}</td>
+	 				<td>{{dato.lastName}}</td>
+	 				<td>{{dato.email}}</td>
+	 				<td>{{dato.active}}</td>
+	 				<td>{{dato.createdAt}}</td>
+	 				<td>{{dato.updatedAt}}</td>
+		 		</tr>
+	 		</table>
+	 	</div>
+ 	</div>
  </div>
 
 </div>
