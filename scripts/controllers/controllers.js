@@ -71,9 +71,8 @@ app.controller('mainController', function($scope,$http) {
 /*------------------CONTROLADORES DE REGISTRO--------------------------*/
 
 app.controller('registroController', function($scope, $http, $location) {
-    var EndPoint = "https://pluma-api.herokuapp.com/api/users";
     $scope.registro = function() {
-        //var EndPoint = "https://pluma-api.herokuapp.com/api/users";
+        var EndPoint = "https://pluma-api.herokuapp.com/api/users";
         var regis = {
             "name": $scope.name,
             "lastName": $scope.lastName,
@@ -82,26 +81,24 @@ app.controller('registroController', function($scope, $http, $location) {
             "password": $scope.password,
             "active": true
         };
-        var pase, pase2;
 
       //  function ocultar() { document.getElementById('oculto').style.display = 'none';
         //document.getElementById('oculto2').style.display = 'none'; }
+        //document.getElementById('oculto2').style.display = 'block';
     
-    
-       // function locaL(){ $location.path('/');}
-      
-        $http.post(EndPoint, regis).success(function(resp) {
-            console.log(regis);
-            document.getElementById('oculto2').style.display = 'block';
-            setInterval(ocultar,3000);
-            setInterval($location.path('/'),5000);
+        function limpia(){nompreInput.value = '';apellidosInput.value='';emailInput.value='';passInput.value='';creditInput.value='';}
 
-        }).error(function(error){
-            console.log("No funciono");
-            document.getElementById('oculto').style.display = 'block';
-            setInterval(ocultar,3000);
-        });
-    };
+         if (nompreInput.value == '' | apellidosInput.value==''| emailInput.value=='' | passInput.value=='' | creditInput.value=='') {
+                alert('llena todo');
+            } else {
+                alert('entr al eslee');
+                $http.post(EndPoint, regis).then(function(resp) {
+                    console.log(resp);
+                    limpia();
+                })
+            }
+       
+    }
 
 });
 
@@ -123,6 +120,7 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
     $http.delete(EndPoint).success(function(resp){
         console.log("eliminado");
         refrescar();
+
     }).error(function(err){
         console.log("no paso");
     });
