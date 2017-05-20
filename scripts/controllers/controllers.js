@@ -1,8 +1,10 @@
+'use strict';
+
 var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
 .config(function($routeProvider) {
 
     $routeProvider
-       /*.when('/', {
+        /*.when('/', {
             templateUrl : 'views/login.html',
             controller  : 'LoginController'
         })*/
@@ -14,10 +16,17 @@ var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
             templateUrl : 'views/registro.html',
             controller  : 'registroController'
         })
-        
          .when('/listado', {
             templateUrl : 'views/listado.html',
             controller  : 'GetUsuarios'
+        })
+        .when('/Estacionamientos', {
+            templateUrl : 'views/Estacionamientos.html',
+            controller  : 'parkingController'
+        })
+        .when('/Costos', {
+            templateUrl : 'views/Costos.html',
+            controller  : ''
         });
     });
 
@@ -25,9 +34,23 @@ var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
 /*Bearer*/
 /*---------------------CONTROLADOR LOGIN-------------------------*/
 
-app.controller('LoginController', ['$scope','$location','$http','$cookieStore',function($scope,$location,$http,$cookies,$cookieStore){
-   $scope.Login = function(valor){  
- };
+app.controller('LoginController', ['$scope','$location','$http','$cookies',function($scope,$location,$http,$cookies){
+    var EndPoint = "https://pluma-api.herokuapp.com/api/administrators";
+    var datosSesion = { "email": $scope.email, "password": $scope.pass };
+    $scope.Login = function(){
+
+        $http.post(EndPoint).then(function(resp){
+             alert(resp.data);
+            if (resp.data.errorMessage != "Wrong password" && resp.data.errorMessage != "The email doesn't exist") {
+                //console.log(resp.data);
+                alert("Entre!!>D");
+                 $location.path('/main');
+            } else {
+                alert("soy else");
+                console.log(resp.data.errorMessage);
+            }
+        }); 
+    };
 }]);
 
 /*------------------CONTROLADORES MAIN--------------------------*/
@@ -51,6 +74,8 @@ app.controller('mainController', function($scope,$http) {
             var cantDispoLog =  100 - cantidadActuallog;
             $scope.cantDispo = cantDispoLog;
             //console.log(cantDispoLog);
+
+
         
         });
     }());
@@ -64,8 +89,6 @@ app.controller('mainController', function($scope,$http) {
 
         });
     }());
-
-
 });
 
 /*------------------CONTROLADORES DE REGISTRO--------------------------*/
@@ -127,6 +150,7 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
  $scope.editar = function(id){
      var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
      var datos = {
+        "id": $scope.id,
         "name": $scope.name,
         "lastName": $scope.lastName,
         "email": $scope.email,
@@ -146,5 +170,48 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
 
 });
 
+app.controller('parkingController', function($scope, $http){
+
+    var EndPoint = "https://pluma-api.herokuapp.com/api/parkings";
+    $http.get(EndPoint).then(function(resp){
+        //console.log(resp.data);
+        $scope.datos = resp.data;
+        //console.log(resp.capacity);
+       //var currentlyOccupied = resp.data[4];
+      // alert(currentlyOccupied);
+
+        $scope.Estacionamiento = function(data){
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Currently Occupied"],
+                    datasets: [{
+                        label: '# of cars',
+                        data: [data],
+                        backgroundColor: [
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    });
+
+});
+
  
-    
+        
