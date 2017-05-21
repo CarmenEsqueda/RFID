@@ -172,43 +172,56 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
 
 app.controller('parkingController', function($scope, $http){
 
-    var EndPoint = "https://pluma-api.herokuapp.com/api/parkings";
-    $http.get(EndPoint).then(function(resp){
-        //console.log(resp.data);
-        $scope.datos = resp.data;
-        //console.log(resp.capacity);
-       //var currentlyOccupied = resp.data[4];
-      // alert(currentlyOccupied);
+    var EndPoint = "https://pluma-api.herokuapp.com/api/parkings?order=id";
 
-        $scope.Estacionamiento = function(data){
-            var ctx = document.getElementById("myChart");
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ["Currently Occupied"],
-                    datasets: [{
-                        label: '# of cars',
-                        data: [data],
-                        backgroundColor: [
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
+    $http.get(EndPoint).then(function(resp){
+        var tamArray = resp.data.length;
+        var newArrayData = [];
+        var newArrayNames = [];
+       // console.log(resp.data[1].id);
+        for (var i = 0; i < tamArray; i++) {
+            console.log(resp.data[i].currentlyOccupied);
+            newArrayData.push(resp.data[i].currentlyOccupied);
+            newArrayNames.push(resp.data[i].name);
+            console.log(resp.data[i].name);
         }
+        console.log(newArrayData);
+
+            /*GRAFICA*/
+                 var ctx = document.getElementById("myChart");
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: newArrayNames,
+                        datasets: [{
+                            label: '# of Votes',
+                            data: newArrayData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            /*./GRAFICA*/
+
     });
 
 });

@@ -1,16 +1,20 @@
 <div class="container" ng-controller="parkingController">
 	<h3>Estacionamientos</h3>
 	<div class="row">
-		<div class="col-xs-12 col-lg-4 ">
-			<table class="table" >
-			<td>Name</td>
-				<tr ng-repeat="dato in datos">
-					<td><a ng-click="Estacionamiento(dato.currentlyOccupied)">{{dato.name}}</a></td>
-				</tr>
+		<div class="col-xs-12 col-lg-12">
+			<table class="table">
+				<td ng-repeat="dato in datos">
+					<a ng-click="Estacionamiento(dato.currentlyOccupied)">{{dato.id}}</a>
+				</td>
 			</table>
 		</div>
-		<div class="col-xs-12 col-lg-6">
-			<canvas id="myChart" width="50" height="50"></canvas>
+		<div class="col-xs-8 col-lg-12">
+			<canvas id="myChart"></canvas>
 		</div>
+		<div class="col-xs-4 col-lg-4">
+			
+			
+		</div>
+
 	</div>
 </div>
