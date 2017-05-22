@@ -128,45 +128,82 @@ app.controller('registroController', function($scope, $http, $location) {
 /*------------------CONTROLADORES USUARIOS--------------------------*/
 app.controller('GetUsuarios', function($scope, $http, $routeParams){
   
+  var dato;
+  function refrescar(){  window.location.reload(); };
+
+
     (function() {
-        var EndPoint = "https://pluma-api.herokuapp.com/api/users/";
+        var EndPoint = "https://pluma-api.herokuapp.com/api/users?order=id";
             $http.get(EndPoint).then(function(resp){
                 $scope.datos = resp.data;
+                dato = resp.data.id;
             });
         }());
 
     $scope.eliminar = function(id){
         var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
-        function refrescar(){  window.location.reload(); };
+
         $http.delete(EndPoint).success(function(resp){
             console.log("eliminado");
             refrescar();
-
         }).error(function(err){
             console.log("no paso");
         });
       };
 
- $scope.editar = function(id){
-     var EndPoint = "https://pluma-api.herokuapp.com/api/users/" + id;
-     var datos = {
-        "id": $scope.id,
-        "name": $scope.name,
-        "lastName": $scope.lastName,
-        "email": $scope.email,
-        "credit": $scope.credit,
-        "password": $scope.password,
-        "active": true
-     };
-     function refrescar(){  window.location.reload(); };
-     $http.put(EndPoint, datos).success(function(resp){
-         console.log(resp);
+    
 
-         alert('buuuya!');
-     }).error(function(err){
-        alert('buuu');
-     });
+    $scope.actualizar = function (id){
+        document.getElementById('oculto').style.display = 'block'; 
+        var EndPoint = "https://pluma-api.herokuapp.com/api/users/"+ id;
+        var datos = {
+            "id": id,
+            "name": $scope.name,
+            "lastName": $scope.lastName,
+            "email": $scope.email,
+            "credit": $scope.credit,
+            "password": $scope.password,
+            "active": true
+        };
+
+        if (nameInput.value == '' && lastnameInput.value == '' 
+            && emailInput.value == '' && creditInput.value == '' 
+            && passwordInput.value == ''){
+            alert("debe llenar todo");
+            console.log(id)
+        } else {
+             $http.put(EndPoint, datos).then(function(resp){
+                console.log(resp)
+             });
+        }
+    };
+
+    $scope.editar = function(id){
+   
+     $scope.dataId = dato; //Almacena el ID que enviamos desde formulario
+     var nmbre = dato;
+     console.log(nmbre);
+     
+
+    if (nameInput.value == '' && lastnameInput.value == '' 
+        && emailInput.value == '' && creditInput.value == '' 
+        && passwordInput.value == '') {
+        alert("debe llenar todo");
+
+    } else {
+        $http.put(EndPoint, datos).success(function(resp){
+            //nsole.log(resp);
+        }).error(function(err){
+            alert('buuu');
+        });
+    }
  };
+
+
+   /* 
+    */
+
+
 
 });
 
@@ -175,52 +212,39 @@ app.controller('parkingController', function($scope, $http){
     var EndPoint = "https://pluma-api.herokuapp.com/api/parkings?order=id";
 
     $http.get(EndPoint).then(function(resp){
+
         var tamArray = resp.data.length;
         var newArrayData = [];
-        var newArrayNames = [];
-       // console.log(resp.data[1].id);
+        var newArrayNames = []; 
+        var newArrayColors = [];
+        var numRandom = Math.floor((Math.random() * 300) + 1);
         for (var i = 0; i < tamArray; i++) {
-            console.log(resp.data[i].currentlyOccupied);
             newArrayData.push(resp.data[i].currentlyOccupied);
             newArrayNames.push(resp.data[i].name);
-            console.log(resp.data[i].name);
+            newArrayColors.push('rgba('+ numRandom +', 99, 132, 0.7)');
         }
-        console.log(newArrayData);
-
-            /*GRAFICA*/
-                 var ctx = document.getElementById("myChart");
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: newArrayNames,
-                        datasets: [{
-                            label: '# of Votes',
-                            data: newArrayData,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.7)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }]
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: newArrayNames,
+                datasets: [{
+                    label: ["# of Cars"],
+                    data: newArrayData,
+                    backgroundColor: newArrayColors,
+                     borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:false
                         }
-                    }
-                });
-            /*./GRAFICA*/
+                    }]
+                }
+            }
+        });
 
     });
 
