@@ -15,7 +15,10 @@ header label {
 }
 
 .menu {
-    background-color: #388e3c;    
+    background-color: #388e3c; 
+    position: fixed;
+    z-index: 1;
+    width: 100%;  
 }
 
 #barraNavegacion li a{

@@ -28,3 +28,7 @@ input, select {
 .texto {
 	text-align: center;
 }
+
+.Visible {
+	display: block;
+}

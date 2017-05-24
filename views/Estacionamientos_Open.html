@@ -6,12 +6,12 @@
 	 		<table class="table" id="">
 	  	 		<td >Id</td>
 	  	 		<td>Nombre</td>
-	  	 		<td></td>
+	  	 		<td>Estado</td>
 	   			<tr ng-repeat="dato in datos">
 	   				<td>#{{dato.id}}</td>
 	   				<td>{{dato.name}}</td>
 	   				<td>
-	   					<button type="checked" class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-model="buto" ng-click="actualizar(dato.open,dato.id)">{{dato.open}}</button>
+	   					<button type="checked" class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-click="actualizar(dato.open,dato.id)"></button>
 	   				</td>
 	   				<td>
 	   				
@@ -21,23 +21,27 @@
 	 	</div>
 	 	
 	 </div>
-	 <div class="col-sm-6  col-md-6">
+	 <div class="col-sm-12  col-md-6">
 	 	<div class="table-responsive">
-	 		<table class="table" id="">
-	  	 		<td >Id</td>
-	  	 		<td>Nombre</td>
-	  	 		<td></td>
-	   			<tr ng-repeat="dato in datas">
-	   				<td>#{{dato.id}}</td>
-	   				<td>{{dato.name}}</td>
-	   				<td>
-	   					<button type="checked" class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-model="buto" ng-click="actualizar(dato.open,dato.id)">{{dato.open}}</button>
-	   				</td>
-	   				<td>
-	   				
-	   				</td>
-	   			</tr>
-			</table>
+	 	<h3>Informacion de estacionamientos</h3>
+	 	<table class="table">
+	 		
+	 		<tr ng-repeat="dato in pas">
+	 			<td>{{dato.name}}</td>
+	 			<td>{{dato.open}}</td>
+	 		</tr>
+	 		<tr>
+	 			<td>Lugares Ocupados</td>
+	 			<td>{{pa.currentlyOccupied}}</td>
+	 		</tr>
+	 		<tr>
+	 			<td>Capacidad</td>
+	 			<td>{{pa.capacity}}</td>
+	 		</tr>
+	 			
+	 	</table>
+	 	<img src="../images/LogoITT.png" class="img-responsive">
+	 			
 	 	</div>
 	 </div>
 </div>

@@ -13,12 +13,15 @@
 .rojo{
    background-color: red;
 }
-
-.rojo:hover {
-  background-color: #43a047;
+.rojo:before{
+	content: "Cerrado";
+}
+.verde:before{
+	content: "Abierto";
 }
 
-.rojo:click {
+
+.rojo:hover {
   background-color: #43a047;
 }
 

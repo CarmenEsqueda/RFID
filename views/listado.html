@@ -1,8 +1,8 @@
  <div class="container-fluid" ng-controller="GetUsuarios" >
  <div class="row">
- <h3>Usuarios registrados</h3>
- 	<div class="col-xs-12 col-md-12 col-lg-12" style=" width:;
-    height: 300px; overflow:auto">
+ <h3>Usuarios registrados</h3><br>
+ 	<div class="col-xs-12 col-md-12 col-lg-6" style=" width:;
+    height: 400px; overflow:auto">
  		<div class="table-responsive">
 	 		<table class="table table-bordered" id="">
   	 		<td >Id</td>
@@ -19,14 +19,11 @@
    				<td>{{dato.active}}</td>
    				<td>
      					
-     					<button id="btnEliminarOculto" class="btn button secundario" ng-click="eliminar()">Eliminar</button>
-              <button id="btnEditarOculto" class="btn button secundario" ng-click="Mostrar()" >Editar</button>
-              
+     					<button id="btnEliminarOculto" class="btn button secundario" ng-click="eliminar(dato.id)">Eliminar</button>
+             
+              <button id="btnActu Oculto" class="btn button primario {{fbMostrar(true)}}" >Editar</button>
 
-
-
-              
-              <button id="btnActu Oculto" class="btn button primario" style="display:;" ng-click="actualizar(dato.id)">Actualizar</button>
+              <button id="btnActu Oculto" class="btn button primario" style="display:none;" ng-click="actualizar(dato.id)">Actualizar</button>
               <!--<button class="btn button primario" data-toggle="modal" data-target="#myModal" style="display:none;>Editar</button>-->
 
             </td>
@@ -35,9 +32,9 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <div class="formulario" id="oculto" style="display:none; margin-top:100px;">
+      <div class="formulario {claseFn(dato.open)}}" id="oculto" style="display:none; margin-top:;">
         <div class="form-group">
-          <input type="text" id="nameInput" class="form-control" ng-model="name" ng-value="dataId" ></input>
+          <input type="text" id="nameInput" class="form-control{{fnMostrar()}}"  value="aaa" ></input>
           <input type="text" id="lastnameInput" class="form-control" ng-model="lastName " ></input>
           <input type="text" id="emailInput" class="form-control" ng-model="email" ></input>
           <input type="text" id="creditInput" class="form-control" ng-model="credit" ></input>
@@ -47,6 +44,8 @@
 
         </div>        
       </div>
-      {{dataId}}
     </div>
+    <divv class="col-sm-6">
+      <img src="../images/LogoITT.png" class="img-responsive" style="margin-left:100px;">
+    </divv>
 </div>
