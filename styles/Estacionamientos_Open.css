@@ -15,5 +15,10 @@
 }
 
 .rojo:hover {
-  background-color: #ef5350;
+  background-color: #43a047;
 }
+
+.rojo:click {
+  background-color: #43a047;
+}
+

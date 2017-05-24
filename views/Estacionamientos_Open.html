@@ -1,7 +1,7 @@
  <div class="container-fluid" ng-controller="EstacionamientoOpenController" >
 	 <div class="row">
 	 	<h3>Estacionamientos abiertos y cerrados</h3><br>
-	 	<div class="col-md-6">
+	 	<div class="col-sm-12 col-md-6">
 	 		<div class="table-responsive">
 	 		<table class="table" id="">
 	  	 		<td >Id</td>
@@ -11,7 +11,7 @@
 	   				<td>#{{dato.id}}</td>
 	   				<td>{{dato.name}}</td>
 	   				<td>
-	   					<button class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-model="buto" ng-click="actualizar(dato.open,dato.id)">{{dato.open}}</button>
+	   					<button type="checked" class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-model="buto" ng-click="actualizar(dato.open,dato.id)">{{dato.open}}</button>
 	   				</td>
 	   				<td>
 	   				
@@ -20,5 +20,24 @@
 			</table>
 	 	</div>
 	 	
+	 </div>
+	 <div class="col-sm-6  col-md-6">
+	 	<div class="table-responsive">
+	 		<table class="table" id="">
+	  	 		<td >Id</td>
+	  	 		<td>Nombre</td>
+	  	 		<td></td>
+	   			<tr ng-repeat="dato in datas">
+	   				<td>#{{dato.id}}</td>
+	   				<td>{{dato.name}}</td>
+	   				<td>
+	   					<button type="checked" class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-model="buto" ng-click="actualizar(dato.open,dato.id)">{{dato.open}}</button>
+	   				</td>
+	   				<td>
+	   				
+	   				</td>
+	   			</tr>
+			</table>
+	 	</div>
 	 </div>
 </div>

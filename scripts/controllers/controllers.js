@@ -290,30 +290,31 @@ app.controller('userController', function($scope, $http){
 });
 
 app.controller('EstacionamientoOpenController', function($scope, $http){
-
     var EndPoint = "https://pluma-api.herokuapp.com/api/parkings?order=id";
-    $http.get(EndPoint).then(function(resp){
-        var dato = resp.data;
-        $scope.datos = resp.data;
-        //var tamArray = resp.data.length;
-       // var newArrarDatos = [];
-        $scope.claseBtn='verde';
-        $scope.claseFn = (b)=>{return (b)?'verde':'rojo';}
+      (function() {
         
+        $http.get(EndPoint).then((resp)=>{
+            $scope.datos = resp.data;
+            $scope.claseFn = (b)=>{return (b)?'verde':'rojo';}
+  
+        });
+    }());
 
-        $scope.actualizar = function(b,id){
-            var url = "https://pluma-api.herokuapp.com/api/parkings/" + id
-            var datos = {"open":!b }; 
-            $http.put(url,datos).then(()=>{
+     $scope.actualizar = (b,id)=>{
+        var url = "https://pluma-api.herokuapp.com/api/parkings/" + id
+        var datos = {"open":!b }; 
+        //$scope.claseFn = (b)=>{return (b)?'verde':'rojo';}
+        $http.put(url,datos).then((resp)=>{
+            console.log("Datos actualizados");
+            
+            $http.get(EndPoint).then((resp)=>{
+                $scope.datos = resp.data;
+                $scope.claseFn = (b)=>{return (b)?'verde':'rojo';}
             });
-        };
-        
+        });
+    };
 
-        /*for (var i = 0; i < tamArray; i++) {
-            console.log(resp.data[i].open);
-        }*/
-
-    });
+    
 
 });
 
