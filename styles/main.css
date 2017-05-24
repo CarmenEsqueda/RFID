@@ -6,3 +6,45 @@
 #AutosAct p {
 	font-size: 2em;
 }
+#LogoItt {
+	margin-top: 20px;
+
+
+}
+img	{
+	opacity: 0.3;
+	/*position: absolute; /* podría ser relative */
+ width: 400px;
+ /*left: 100px;*/
+ top: 20px;
+ margin-bottom: 50px;
+}
+
+@media (max-width:991px) {
+	img	{
+		position: absolute; /* podría ser relative */
+		width: 400px;
+		left: 25%;
+		top: 20px;
+		margin-bottom: 50px;
+	}
+}
+@media (max-width:593px) {
+	img	{
+		position: absolute; /* podría ser relative */
+		width: 400px;
+		left: 10%;
+		top: 20px;
+		margin-bottom: 50px;
+	}
+}
+
+@media (max-width:540px) {
+	img	{
+		position: absolute; /* podría ser relative */
+		width: 400px;
+		left: 0%;
+		top: 20px;
+		margin-bottom: 50px;
+	}
+}

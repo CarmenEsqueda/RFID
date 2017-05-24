@@ -1,0 +1,19 @@
+.Estado_btn {
+  background-color: green;
+  width: 100px;
+  height: 25px;
+  border-radius: 50px;
+  color: #fff;
+}
+.Estado_btn:hover {
+  background-color: #43a047;
+}
+
+
+.rojo{
+   background-color: red;
+}
+
+.rojo:hover {
+  background-color: #ef5350;
+}

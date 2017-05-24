@@ -1,13 +1,64 @@
 <!--
 	Muestra un informe resumido de los datos actuales en la BD
 -->
- <div class="" ng-controller="mainController">
- <div class="row">
+ <div class="row" ng-controller="mainController">
+	 <h1>Bienvenido Administrador</h1>
+	 <h4>Estos son los informes actuales del sistema</h4><br>
+	 <div class="col-xs-12 col-md-6" id="LogoItt">
+	 	<img src="../images/LogoITT.png" class="img-responsive"  >
+	 </div>
+	 <div class="col-xs-12 col-md-6" id="Contenido">
+	 	<div class="table-responsive">
+	 		<h4>Estacionamientos Disponibles</h4>
+	 		<table class="table table-bordered">
+	 		<tr>
+	 			<td>Lugares Ocupados</td>
+	 			<td>{{cantidadActual}}</td>
+	 		</tr>
+	 		<tr>
+	 			<td>Lugares Disponibles</td>
+	 			<td>{{cantDispo}}</td>
+	 		</tr>
+	 		</table>
+	 	</div>
+	</div>
+	 <div class="col-xs-12 col-md-6" id="Contenido">
+	 	<div class="table-responsive">
+	 		<h4>Ultimos usuarios registrados</h4>
+	 		<table class="table table-bordered">
+		 		<td>Id</td>
+		 		<td>Nombre</td>
+		 		<td>Apellido</td>
+		 		<td>Email</td>
+		 		<td>Rgistrado el dia: </td>
+		 		<tr ng-repeat="dato in datas">
+			 		<td>#{{dato.id}}</td>
+	 				<td>{{dato.name}}</td>
+	 				<td>{{dato.lastName}}</td>
+	 				<td>{{dato.email}}</td>
+	 				<td>{{dato.createdAt}}</td>
+		 		</tr>
+	 		</table>
+	 	</div>
+	</div>
+	<div class="col-xs-12 col-md-6">
+		<div style="text-align:center;width:400px;padding:1em 0;"> 
+			<h2>
+			<a style="text-decoration:none;"> 
+			<iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&timezone=America%2FTijuana" width="100%" height="150" frameborder="0" seamless>
+			</iframe> 
+		</div>
+	</div>
+ </div>
+
+
+
+ <!--<div class="row">
  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
  		<h1>Bienvenido Administrador</h1>
 	 	<h4>Estos son los informes actuales del sistema</h4><br>
  	</div>
- 	<!--Contenedor de total de autos en estacionamiento-->
+ 	<!--Contenedor de total de autos en estacionamiento
  	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="">
  		<div class="table-responsive">
 	 		<table class="table table-bordered">
@@ -36,10 +87,11 @@
 	 		</tr>
 	 		</table>
 	 	</div>
- 	</div>
+ 	</div>-->
  
  	
- </div>
+ 
+ <!--</div>
  <div class="row">
  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	 	<div class="table-responsive">
@@ -66,5 +118,5 @@
  	</div>
  </div>
 
-</div>
+</div>-->
 

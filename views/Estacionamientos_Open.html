@@ -1,0 +1,24 @@
+ <div class="container-fluid" ng-controller="EstacionamientoOpenController" >
+	 <div class="row">
+	 	<h3>Estacionamientos abiertos y cerrados</h3><br>
+	 	<div class="col-md-6">
+	 		<div class="table-responsive">
+	 		<table class="table" id="">
+	  	 		<td >Id</td>
+	  	 		<td>Nombre</td>
+	  	 		<td></td>
+	   			<tr ng-repeat="dato in datos">
+	   				<td>#{{dato.id}}</td>
+	   				<td>{{dato.name}}</td>
+	   				<td>
+	   					<button class="Estado_btn {{claseFn(dato.open)}}" id="buton" value="{{dato.open}}"  ng-model="buto" ng-click="actualizar(dato.open,dato.id)">{{dato.open}}</button>
+	   				</td>
+	   				<td>
+	   				
+	   				</td>
+	   			</tr>
+			</table>
+	 	</div>
+	 	
+	 </div>
+</div>

@@ -4,7 +4,7 @@ var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
 .config(function($routeProvider) {
 
     $routeProvider
-        /*.when('/', {
+       /* .when('/', {
             templateUrl : 'views/login.html',
             controller  : 'LoginController'
         })*/
@@ -24,32 +24,45 @@ var app =  angular.module('MyApp', ['ngRoute','ngCookies'])
             templateUrl : 'views/Estacionamientos.html',
             controller  : 'parkingController'
         })
-        .when('/Costos', {
-            templateUrl : 'views/Costos.html',
-            controller  : ''
+        .when('/usuarios', {
+            templateUrl : 'views/usuarios.html',
+            controller  : 'userController'
+        })
+        .when('/esta_open', {
+            templateUrl : 'views/Estacionamientos_Open.html',
+            controller  : 'EstacionamientoOpenController'
         });
+
+
+
+        
     });
 
 
-/*Bearer*/
 /*---------------------CONTROLADOR LOGIN-------------------------*/
 
 app.controller('LoginController', ['$scope','$location','$http','$cookies',function($scope,$location,$http,$cookies){
-    var EndPoint = "https://pluma-api.herokuapp.com/api/administrators";
-    var datosSesion = { "email": $scope.email, "password": $scope.pass };
-    $scope.Login = function(){
+   
+    var EndPoint = "https://pluma-api.herokuapp.com/api/users?desc";
+    var newArrayEmail= [];
+    var newArrayPass = []; 
 
-        $http.post(EndPoint).then(function(resp){
-             alert(resp.data);
-            if (resp.data.errorMessage != "Wrong password" && resp.data.errorMessage != "The email doesn't exist") {
-                //console.log(resp.data);
-                alert("Entre!!>D");
-                 $location.path('/main');
-            } else {
-                alert("soy else");
-                console.log(resp.data.errorMessage);
+    $scope.Login = function(){
+        var i;
+         $http.get(EndPoint).then(function(resp){
+            var tamArray = resp.data.length;
+            console.log(resp.data);
+            for (i = 0; i < tamArray; i++) {
+                newArrayEmail.push(resp.data[i].email);
+                newArrayPass.push(resp.data[i].password);
+                 if (emailInput.value == newArrayEmail[i] && passInput.value  == newArrayPass[i]) {
+                  $location.path('/main');
+                  document.getElementById('barraNavegacion').style.display = 'block';
+                } 
+
             }
-        }); 
+
+         });
     };
 }]);
 
@@ -81,7 +94,7 @@ app.controller('mainController', function($scope,$http) {
     }());
 
     (function() {
-        var EndPoint ="https://pluma-api.herokuapp.com/api/users";
+        var EndPoint ="https://pluma-api.herokuapp.com/api/users?count=3";
         $http.get(EndPoint).then(function(resp){
              var total = resp.data;
              $scope.datas = total;
@@ -151,10 +164,14 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
         });
       };
 
-    
+    $scope.Mostrar = function(){
+        document.getElementById('oculto').style.display = 'block';
+    };
+
+
 
     $scope.actualizar = function (id){
-        document.getElementById('oculto').style.display = 'block'; 
+      //  document.getElementById('oculto').style.display = 'block'; 
         var EndPoint = "https://pluma-api.herokuapp.com/api/users/"+ id;
         var datos = {
             "id": id,
@@ -176,34 +193,7 @@ app.controller('GetUsuarios', function($scope, $http, $routeParams){
                 console.log(resp)
              });
         }
-    };
-
-    $scope.editar = function(id){
-   
-     $scope.dataId = dato; //Almacena el ID que enviamos desde formulario
-     var nmbre = dato;
-     console.log(nmbre);
-     
-
-    if (nameInput.value == '' && lastnameInput.value == '' 
-        && emailInput.value == '' && creditInput.value == '' 
-        && passwordInput.value == '') {
-        alert("debe llenar todo");
-
-    } else {
-        $http.put(EndPoint, datos).success(function(resp){
-            //nsole.log(resp);
-        }).error(function(err){
-            alert('buuu');
-        });
-    }
- };
-
-
-   /* 
-    */
-
-
+      };
 
 });
 
@@ -214,15 +204,18 @@ app.controller('parkingController', function($scope, $http){
     $http.get(EndPoint).then(function(resp){
 
         var tamArray = resp.data.length;
+        //console.log(tamArray);
         var newArrayData = [];
         var newArrayNames = []; 
         var newArrayColors = [];
         var numRandom = Math.floor((Math.random() * 300) + 1);
+
         for (var i = 0; i < tamArray; i++) {
             newArrayData.push(resp.data[i].currentlyOccupied);
             newArrayNames.push(resp.data[i].name);
             newArrayColors.push('rgba('+ numRandom +', 99, 132, 0.7)');
         }
+
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -249,6 +242,83 @@ app.controller('parkingController', function($scope, $http){
     });
 
 });
+
+app.controller('userController', function($scope, $http){
+
+    var EndPoint = "https://pluma-api.herokuapp.com/api/users?order=id";
+
+    $http.get(EndPoint).then(function(resp){
+
+        var tamArray = resp.data.length;
+        //console.log(tamArray);
+        var newArrayData = [];
+        var newArrayNames = []; 
+        var newArrayColors = [];
+        var numRandom = Math.floor((Math.random() * 300) + 1);
+
+        for (var i = 0; i < tamArray; i++) {
+            newArrayData.push(resp.data[i].createdAt);
+            newArrayNames.push(resp.data[i].name);
+            newArrayColors.push('rgba('+ numRandom +', 99, 132, 0.7)');
+        }
+
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: newArrayNames,
+                datasets: [{
+                    label: ["# of Cars"],
+                    data: newArrayData,
+                    backgroundColor: newArrayColors,
+                     borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:false
+                        }
+                    }]
+                }
+            }
+        });
+
+    });
+
+});
+
+app.controller('EstacionamientoOpenController', function($scope, $http){
+
+    var EndPoint = "https://pluma-api.herokuapp.com/api/parkings?order=id";
+    $http.get(EndPoint).then(function(resp){
+        var dato = resp.data;
+        $scope.datos = resp.data;
+        //var tamArray = resp.data.length;
+       // var newArrarDatos = [];
+        $scope.claseBtn='verde';
+        $scope.claseFn = (b)=>{return (b)?'verde':'rojo';}
+        
+
+        $scope.actualizar = function(b,id){
+            var url = "https://pluma-api.herokuapp.com/api/parkings/" + id
+            var datos = {"open":!b }; 
+            $http.put(url,datos).then(()=>{
+            });
+        };
+        
+
+        /*for (var i = 0; i < tamArray; i++) {
+            console.log(resp.data[i].open);
+        }*/
+
+    });
+
+});
+
+
+
 
  
         
